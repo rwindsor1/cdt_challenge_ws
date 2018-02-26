@@ -45,7 +45,7 @@ target_link_libraries(path_follower_cdt_node ${catkin_LIBRARIES} path_follower_c
 
 add_executable(simple_heading_follower_node
   src/path_follower_cdt/simple_heading_follower_node.cpp )
-target_link_libraries(simple_heading_follower_node ${catkin_LIBRARIES} path_follower)
+target_link_libraries(simple_heading_follower_node ${catkin_LIBRARIES} path_follower_cdt)
 
 
 #############
