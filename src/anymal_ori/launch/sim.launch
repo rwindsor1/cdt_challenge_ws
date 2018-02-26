@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<launch>
+
+  <!-- GAZEBO ARGUMENTS -->
+  <!-- Run Gazebo headless -->
+  <arg name="gazebo_headless"                         default="false"/>
+  <!-- Set the name of the Gazebo config file -->
+  <arg name="gazebo_config_file"                      default="default"/>
+  <!-- Model path -->
+  <!-- If the world is not found in a "linked" devel space layout (see catkin config), this might help: -->
+  <!-- "$(find gazebo_worlds)/../../.private/gazebo_worlds/share" -->
+  <arg name="model_path"                              default="$(find gazebo_worlds_ori)/models"/>
+  <!-- Name of the world -->
+  <arg name="world"                                   default="empty"/>
+  <!-- Path to the world file -->
+  <arg name="world_file"                              default="$(find gazebo_worlds)/worlds/$(arg world).world"/>
+  <!-- Enable/disable state estimation messages from Gazebo -->
+  <arg name="simulate_estimator"                      default="true"/>
+  <!-- Set true to simulate sensors without noise and bias -->
+  <arg name="perfect_sensors"                         default="true"/>
+  <!-- Set true to fix the robot's main body in space -->
+  <arg name="fixed"                                   default="false"/>
+  <!-- Set the initial pose of the robot's main body -->
+  <arg name="x"                                       default="0.0"/>
+  <arg name="y"                                       default="0.0"/>
+  <arg name="z"                                       default="0.8"/>
+  <arg name="roll"                                    default="0.0"/>
+  <arg name="pitch"                                   default="0.0"/>
+  <arg name="yaw"                                     default="0.0"/>
+  <!-- Frame offsets -->
+  <arg name="frame_odometry_offset_x"                 default="0.0"/>
+  <arg name="frame_odometry_offset_y"                 default="0.0"/>
+  <arg name="frame_odometry_offset_z"                 default="0.0"/>
+  <!-- Load and draw meshes -->
+  <arg name="mesh"                                    default="true"/>
+  <!-- Enable/disable the actuated lidar on ANYmal -->
+  <arg name="actuated_lidar"                          default="false"/>
+  <!-- Enable/disable the velodyne on ANYmal -->
+  <arg name="velodyne"                                default="false"/>
+  <!-- Enable/disable the realsense on ANYmal -->
+  <arg name="realsense"                               default="false"/>
+
+  <!-- GUI ARGUMENTS -->
+  <!-- Enable/disable Gazebo GUI -->
+  <arg name="run_gazebo_gui"                          default="false"/>
+  <!-- Enable/disable rviz -->
+  <arg name="run_rviz"                                default="true"/>
+  <!-- rviz configuration -->
+  <arg name="rviz_config_path"                        default="$(find anymal_ori)/config/rviz/anymal_ori.rviz"/>
+  <!-- Path to the RViz world -->
+  <arg name="rviz_world_path"                         default="$(find gazebo_worlds_ori)/rviz/$(arg world).yaml"/>
+  <!-- Enable/disable tf minimal -->
+  <arg name="tf_minimal"                              default="false"/>
+  <!-- Enable/disable rqt -->
+  <arg name="run_rqt"                                 default="true"/>
+  <!-- rqt perspective path -->
+  <arg name="rqt_perspective_path"                    default="$(find anymal_ori)/config/rqt/rqt_ori.perspective"/>
+
+  <!-- ROBOT ARGUMENTS -->
+  <!-- Set the name of the robot -->
+  <arg name="quadruped_name"                          default="anymal"/>
+  <!-- Set robot description path -->
+  <arg name="description_file"                        default="$(find anymal_description)/urdf/anymal.urdf.xacro"/>
+
+  <!-- LOCOMOTION ARGUMENTS -->
+  <!-- Set the state estimator filter config file -->
+  <arg name="filter_config_file"                      default="$(find anymal_sim)/config/state_estimator/lwf_filter_config.info"/>
+  <!-- Set the state estimator feet config files -->
+  <arg name="foot_lf_config_file"                     default="$(find anymal_sim)/config/state_estimator/foot_lf_config.info"/>
+  <arg name="foot_rf_config_file"                     default="$(find anymal_sim)/config/state_estimator/foot_rf_config.info"/>
+  <arg name="foot_lh_config_file"                     default="$(find anymal_sim)/config/state_estimator/foot_lh_config.info"/>
+  <arg name="foot_rh_config_file"                     default="$(find anymal_sim)/config/state_estimator/foot_rh_config.info"/>
+  <!-- File where the controllers to load are specified -->
+  <arg name="controllers_file"                        default="$(find anymal_sim)/config/locomotion_controllers/controllers.yaml"/>
+  <!-- Launch prefix for the state estimator -->
+  <arg name="state_estimator_launch_prefix"           default=""/>
+  <!-- Launch prefix for the highlevel controller -->
+  <arg name="highlevel_controller_launch_prefix"      default=""/>
+  <!-- Set the logger type. Can be 'std' (parsed in MATLAB), 'ros' (topics are published to ROS) or 'none' (no logging is done) -->
+  <arg name="highlevel_controller_logger_type"        default="ros"/>
+  <!-- Set to true to run the ghost tf publisher -->
+  <arg name="run_ghost_tf_publisher"                  default="true"/>
+  <!-- The output can either be screen, log or an empty string -->
+  <arg name="joy_manager_output"                      default="screen"/>
+  <!-- Use an external joystick device -->
+  <arg name="use_external_joystick"                   default="false"/>
+  <!-- Set the type of the external joystick. Supported are logitechf710, xbox and spacenav -->
+  <arg name="external_joystick_type"                  default="logitechf710"/>
+  <!-- Basic action collection for Free Gait -->
+  <arg name="free_gait_basic_collection"              default="basic_beth"/>
+
+  <!-- PARAMETERS -->
+  <!-- Set global simulation parameter -->
+  <param name="/simulation" value="true"/>
+
+  <!-- Gazebo -->
+  <include file="$(find anymal_gazebo)/launch/anymal_gazebo.launch">
+    <arg name="headless"                 value="$(arg gazebo_headless)"/>
+    <arg name="config_file"              value="$(arg gazebo_config_file)"/>
+    <arg name="model_path"               value="$(arg model_path)"/>
+    <arg name="world"                    value="$(arg world)"/>
+    <arg name="world_file"               value="$(arg world_file)"/>
+    <arg name="simulate_estimator"       value="$(arg simulate_estimator)"/>
+    <arg name="perfect_sensors"          value="$(arg perfect_sensors)"/>
+    <arg name="fixed"                    value="$(arg fixed)"/>
+    <arg name="x"                        value="$(arg x)"/>
+    <arg name="y"                        value="$(arg y)"/>
+    <arg name="z"                        value="$(arg z)"/>
+    <arg name="roll"                     value="$(arg roll)"/>
+    <arg name="pitch"                    value="$(arg pitch)"/>
+    <arg name="yaw"                      value="$(arg yaw)"/>
+    <arg name="frame_odometry_offset_x"  value="$(arg frame_odometry_offset_x)"/>
+    <arg name="frame_odometry_offset_y"  value="$(arg frame_odometry_offset_y)"/>
+    <arg name="frame_odometry_offset_z"  value="$(arg frame_odometry_offset_z)"/>
+    <arg name="mesh"                     value="$(arg mesh)"/>
+    <arg name="actuated_lidar"           value="$(arg actuated_lidar)"/>
+    <arg name="velodyne"                 value="$(arg velodyne)"/>
+    <arg name="realsense"                value="$(arg realsense)"/>
+    <arg name="run_gui"                  value="$(arg run_gazebo_gui)"/>
+    <arg name="description_name"         value="quadruped_description"/>
+    <arg name="description_file"         value="$(arg description_file)"/>
+  </include>
+
+  <!-- Free Gait -->
+  <include file="$(find free_gait_anymal)/launch/anymal.launch">
+    <arg name="action_collection" value="$(arg free_gait_basic_collection)"/>
+  </include>
+
+  <!-- Launch colored model descriptions -->
+  <include file="$(find anymal_description)/launch/load_red.launch">
+    <arg name="description_file" value="$(arg description_file)"/>
+  </include>
+  <include file="$(find anymal_description)/launch/load_blue.launch">
+    <arg name="description_file" value="$(arg description_file)"/>
+  </include>
+  <include file="$(find anymal_description)/launch/load_green.launch">
+    <arg name="description_file" value="$(arg description_file)"/>
+  </include>
+
+  <!-- Dodgeball -->
+  <include file="$(find dodgeball_gazebo)/launch/dodgeball.launch">
+    <arg name="target_robot_name" value="$(arg quadruped_name)"/>
+    <arg name="target_link_name"  value="base"/>
+  </include>
+
+  <!-- RViz -->
+  <group if="$(arg run_rviz)">
+    <!-- Launch node -->
+    <include file="$(find anymal_rviz_visualization)/launch/rviz.launch">
+      <arg name="rviz_config_path" value="$(arg rviz_config_path)"/>
+      <arg name="rviz_world_path"  value="$(arg rviz_world_path)"/>
+      <arg name="tf_minimal"       value="$(arg tf_minimal)"/>
+    </include>
+  </group>
+
+  <!-- rqt -->
+  <group if="$(arg run_rqt)">
+    <!-- Load parameters -->
+    <rosparam command="load" file="$(find rqt_highlevel_controlmanager)/params/anymal.yaml"/>
+    <param name="/user_interface/rqt_parameters/handler_namespace"   value="/anymal_highlevel_controller"/>
+    <param name="/user_interface/rqt_signal_logger/logger_namespace" value="/anymal_highlevel_controller"/>
+    <param name="/controlmanager/simulation"                         value="true"/>
+
+    <!-- Launch node -->
+    <node name="rqt_anymal" pkg="anymal_sim" type="rqt.sh" args="$(arg rqt_perspective_path)" output="screen"/>
+  </group>
+
+  <!-- Joy Manager -->
+  <include file="$(find joy_manager)/launch/joy_manager.launch">
+    <arg name="output"  value="$(arg joy_manager_output)"/>
+    <arg name="modules" value="[JoyAnymalHighlevelController]"/>
+  </include>
+
+  <!-- External joystick -->
+  <group if="$(arg use_external_joystick)">
+    <include file="$(find joy_interface)/launch/$(arg external_joystick_type).launch">
+      <!-- Location of joystick device managed by udev rule. Otherwise specify here: -->
+        <!-- <arg name="joy_dev" value="/dev/input/js0" -->
+      <!-- Location of feedback device managed by udev rule. Otherwise specify here: -->
+        <!-- <arg name="feedback_dev" value="/dev/input/event0" -->
+      <arg name="modules" value="[AnymalModule]"/>
+    </include>
+  </group>
+
+  <!-- Throttle -->
+  <include file="$(find anymal_logging)/launch/throttle.launch"/>
+
+  <!-- State estimator -->
+  <group unless="$(arg simulate_estimator)">
+    <include file="$(find anymal_state_estimator_lwf)/launch/state_estimator_lwf.launch">
+      <arg name="simulation"          value="true"/>
+      <arg name="launch_prefix"       value="$(arg state_estimator_launch_prefix)"/>
+      <arg name="filter_config_file"  value="$(arg filter_config_file)"/>
+      <arg name="foot_lf_config_file" value="$(arg foot_lf_config_file)"/>
+      <arg name="foot_rf_config_file" value="$(arg foot_rf_config_file)"/>
+      <arg name="foot_lh_config_file" value="$(arg foot_lh_config_file)"/>
+      <arg name="foot_rh_config_file" value="$(arg foot_rh_config_file)"/>
+    </include>
+  </group>
+
+  <!-- Highlevel controller -->
+  <include file="$(find anymal_highlevel_controller)/launch/anymal_highlevel_controller.launch">
+    <arg name="simulation"       value="true"/>
+    <arg name="launch_prefix"    value="$(arg highlevel_controller_launch_prefix)"/>
+    <arg name="description_name" value="quadruped_description"/>
+    <arg name="logger_type"      value="$(arg highlevel_controller_logger_type)"/>
+    <arg name="controllers_file" value="$(arg controllers_file)"/>
+  </include>
+
+  <!-- Quadruped tf publisher -->
+  <include file="$(find quadruped_tf_publisher)/launch/quadruped_tf_publisher.launch"/>
+
+  <!-- Ghost tf publisher -->
+  <group if="$(arg run_ghost_tf_publisher)">
+    <include file="$(find quadruped_tf_publisher)/launch/ghost_tf_publisher.launch">
+      <arg name="name" value="ghost"/>
+    </include>
+    <include file="$(find quadruped_tf_publisher)/launch/ghost_tf_publisher.launch">
+      <arg name="name" value="ghost_measured"/>
+    </include>
+  </group>
+
+</launch>

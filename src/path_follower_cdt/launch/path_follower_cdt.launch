@@ -1,0 +1,6 @@
+<launch>
+  <!-- send footstep request to, compute the velocity to follow. execute it -->
+  <node pkg="path_follower_cdt" type="path_follower_cdt_node" name="path_follower_cdt_node" output="screen" />
+  <node pkg="path_follower" type="posture_interface.py" name="posture_interface" output="screen" />
+
+</launch>

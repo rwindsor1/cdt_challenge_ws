@@ -1,0 +1,194 @@
+<?xml version="1.0"?>
+
+<!-- This file contains the description of the ANYmal robot. -->
+
+<robot name="anymal" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Arguments -->
+  <xacro:arg name="simulation"          default="true"/>
+  <xacro:arg name="perfect_sensors"     default="true"/>
+  <xacro:arg name="fixed"               default="false"/>
+  <xacro:arg name="mesh"                default="true"/>
+  <xacro:arg name="material_color_rgba" default="0.7 0.7 0.7 1.0"/>
+  <xacro:arg name="actuated_lidar"      default="false"/>
+  <xacro:arg name="velodyne"            default="false"/>
+  <xacro:arg name="realsense"           default="false"/>
+  <xacro:arg name="casing"              default="true"/>
+  <xacro:arg name="simulate_using_gpu"  default="true"/>
+  
+  <!-- Component versions -->
+  <xacro:property name="base_version"    value="2_0_b"/>
+  <xacro:property name="hip_version"     value="3_0"/>
+  <xacro:property name="thigh_version"   value="3_0"/>
+  <xacro:property name="shank_version"   value="3_0"/>
+  <xacro:property name="adapter_version" value="3_0"/>
+  <xacro:property name="foot_version"    value="9_0"/>
+
+  <!-- Includes -->
+  <xacro:include filename="$(find anymal_description)/urdf/include/anymal_utils.urdf.xacro"/>
+  <xacro:include filename="$(find anymal_description)/urdf/base/${base_version}/anymal_base_macro.urdf.xacro"/>
+  <xacro:include filename="$(find anymal_description)/urdf/hip/${hip_version}/anymal_hip_macro.urdf.xacro"/>
+  <xacro:include filename="$(find anymal_description)/urdf/thigh/${thigh_version}/anymal_thigh_macro.urdf.xacro"/>
+  <xacro:include filename="$(find anymal_description)/urdf/shank/${shank_version}/anymal_shank_macro.urdf.xacro"/>
+  <xacro:include filename="$(find anymal_description)/urdf/adapter/${adapter_version}/anymal_adapter_macro.urdf.xacro"/>
+  <xacro:include filename="$(find anymal_description)/urdf/foot/${foot_version}/anymal_foot_macro.urdf.xacro"/>
+
+  <!-- Base -->
+  <xacro:anymal_base name="base" mesh_name="package://anymal_description/urdf/base/${base_version}/anymal_base.dae">
+    <properties>
+      <xacro:include filename="$(find anymal_description)/urdf/base/${base_version}/anymal_base_parameters.urdf.xacro"/>
+    </properties>
+  </xacro:anymal_base>
+
+  <!-- Left fore components -->
+  <xacro:anymal_hip leg="LF" mesh_name="package://anymal_description/urdf/hip/${hip_version}/anymal_hip_l.dae">
+    <properties>
+      <xacro:include filename="$(find anymal_description)/urdf/hip/${hip_version}/anymal_hip_parameters.urdf.xacro"/>
+    </properties>
+  </xacro:anymal_hip>
+  <xacro:anymal_thigh leg="LF" mesh_name="package://anymal_description/urdf/thigh/${thigh_version}/anymal_thigh_l.dae">
+    <properties>
+      <xacro:include filename="$(find anymal_description)/urdf/thigh/${thigh_version}/anymal_thigh_parameters.urdf.xacro"/>
+    </properties>
+  </xacro:anymal_thigh>
+  <xacro:anymal_shank leg="LF" mesh_name="package://anymal_description/urdf/shank/${shank_version}/anymal_shank_l.dae">
+    <properties>
+      <xacro:include filename="$(find anymal_description)/urdf/shank/${shank_version}/anymal_shank_parameters.urdf.xacro"/>
+    </properties>
+  </xacro:anymal_shank>
+  <xacro:anymal_adapter leg="LF" mesh_name="package://anymal_description/urdf/adapter/${adapter_version}/anymal_adapter.dae">>
+    <properties>
+      <xacro:include filename="$(find anymal_description)/urdf/adapter/${adapter_version}/anymal_adapter_parameters.urdf.xacro"/>
+    </properties>
+  </xacro:anymal_adapter>
+  <xacro:anymal_foot leg="LF" mesh_name="package://anymal_description/urdf/foot/${foot_version}/anymal_foot_l.dae">
+    <properties>
+      <xacro:include filename="$(find anymal_description)/urdf/foot/${foot_version}/anymal_foot_parameters.urdf.xacro"/>
+    </properties>
+  </xacro:anymal_foot>
+
+  <!-- Right fore components -->
+  <xacro:anymal_hip leg="RF" mesh_name="package://anymal_description/urdf/hip/${hip_version}/anymal_hip_r.dae">
+    <properties>
+      <xacro:include filename="$(find anymal_description)/urdf/hip/${hip_version}/anymal_hip_parameters.urdf.xacro"/>
+    </properties>
+  </xacro:anymal_hip>
+  <xacro:anymal_thigh leg="RF" mesh_name="package://anymal_description/urdf/thigh/${thigh_version}/anymal_thigh_r.dae">
+    <properties>
+      <xacro:include filename="$(find anymal_description)/urdf/thigh/${thigh_version}/anymal_thigh_parameters.urdf.xacro"/>
+    </properties>
+  </xacro:anymal_thigh>
+  <xacro:anymal_shank leg="RF" mesh_name="package://anymal_description/urdf/shank/${shank_version}/anymal_shank_r.dae">
+    <properties>
+      <xacro:include filename="$(find anymal_description)/urdf/shank/${shank_version}/anymal_shank_parameters.urdf.xacro"/>
+    </properties>
+  </xacro:anymal_shank>
+  <xacro:anymal_adapter leg="RF" mesh_name="package://anymal_description/urdf/adapter/${adapter_version}/anymal_adapter.dae">>
+    <properties>
+      <xacro:include filename="$(find anymal_description)/urdf/adapter/${adapter_version}/anymal_adapter_parameters.urdf.xacro"/>
+    </properties>
+  </xacro:anymal_adapter>
+  <xacro:anymal_foot leg="RF" mesh_name="package://anymal_description/urdf/foot/${foot_version}/anymal_foot_r.dae">
+    <properties>
+      <xacro:include filename="$(find anymal_description)/urdf/foot/${foot_version}/anymal_foot_parameters.urdf.xacro"/>
+    </properties>
+  </xacro:anymal_foot>
+
+  <!-- Left hind components -->
+  <xacro:anymal_hip leg="LH" mesh_name="package://anymal_description/urdf/hip/${hip_version}/anymal_hip_r.dae">
+    <properties>
+      <xacro:include filename="$(find anymal_description)/urdf/hip/${hip_version}/anymal_hip_parameters.urdf.xacro"/>
+    </properties>
+  </xacro:anymal_hip>
+  <xacro:anymal_thigh leg="LH" mesh_name="package://anymal_description/urdf/thigh/${thigh_version}/anymal_thigh_r.dae">
+    <properties>
+      <xacro:include filename="$(find anymal_description)/urdf/thigh/${thigh_version}/anymal_thigh_parameters.urdf.xacro"/>
+    </properties>
+  </xacro:anymal_thigh>
+  <xacro:anymal_shank leg="LH" mesh_name="package://anymal_description/urdf/shank/${shank_version}/anymal_shank_r.dae">
+    <properties>
+      <xacro:include filename="$(find anymal_description)/urdf/shank/${shank_version}/anymal_shank_parameters.urdf.xacro"/>
+    </properties>
+  </xacro:anymal_shank>
+  <xacro:anymal_adapter leg="LH" mesh_name="package://anymal_description/urdf/adapter/${adapter_version}/anymal_adapter.dae">>
+    <properties>
+      <xacro:include filename="$(find anymal_description)/urdf/adapter/${adapter_version}/anymal_adapter_parameters.urdf.xacro"/>
+    </properties>
+  </xacro:anymal_adapter>
+  <xacro:anymal_foot leg="LH" mesh_name="package://anymal_description/urdf/foot/${foot_version}/anymal_foot_r.dae">
+    <properties>
+      <xacro:include filename="$(find anymal_description)/urdf/foot/${foot_version}/anymal_foot_parameters.urdf.xacro"/>
+    </properties>
+  </xacro:anymal_foot>
+
+  <!-- Right hind components -->
+  <xacro:anymal_hip leg="RH" mesh_name="package://anymal_description/urdf/hip/${hip_version}/anymal_hip_l.dae">
+    <properties>
+      <xacro:include filename="$(find anymal_description)/urdf/hip/${hip_version}/anymal_hip_parameters.urdf.xacro"/>
+    </properties>
+  </xacro:anymal_hip>
+  <xacro:anymal_thigh leg="RH" mesh_name="package://anymal_description/urdf/thigh/${thigh_version}/anymal_thigh_l.dae">
+    <properties>
+      <xacro:include filename="$(find anymal_description)/urdf/thigh/${thigh_version}/anymal_thigh_parameters.urdf.xacro"/>
+    </properties>
+  </xacro:anymal_thigh>
+  <xacro:anymal_shank leg="RH" mesh_name="package://anymal_description/urdf/shank/${shank_version}/anymal_shank_l.dae">
+    <properties>
+      <xacro:include filename="$(find anymal_description)/urdf/shank/${shank_version}/anymal_shank_parameters.urdf.xacro"/>
+    </properties>
+  </xacro:anymal_shank>
+  <xacro:anymal_adapter leg="RH" mesh_name="package://anymal_description/urdf/adapter/${adapter_version}/anymal_adapter.dae">>
+    <properties>
+      <xacro:include filename="$(find anymal_description)/urdf/adapter/${adapter_version}/anymal_adapter_parameters.urdf.xacro"/>
+    </properties>
+  </xacro:anymal_adapter>
+  <xacro:anymal_foot leg="RH" mesh_name="package://anymal_description/urdf/foot/${foot_version}/anymal_foot_l.dae">
+    <properties>
+      <xacro:include filename="$(find anymal_description)/urdf/foot/${foot_version}/anymal_foot_parameters.urdf.xacro"/>
+    </properties>
+  </xacro:anymal_foot>
+
+  <!-- Xsens Mti -->
+  <xacro:include filename="$(find quadruped_sensors_description)/urdf/xsens_mti.urdf.xacro"/>
+  <xacro:xsens_mti name="imu" parent="base" update_rate="400" ns="sensors" frame_id="/imu_link" topic_name="imu">
+    <origin xyz="0.0245 -0.04255 0.1857" rpy="${PI} 0.0 0.0"/>
+  </xacro:xsens_mti>
+
+  <!-- Actuated lidar -->
+  <xacro:if value="$(arg actuated_lidar)">
+    <xacro:include filename="$(find actuated_lidar_description)/urdf/actuated_lidar.urdf.xacro"/>
+    <xacro:actuated_lidar name="actuated_lidar" parent="base" dynamixel_lidar_offset="0.1515">
+      <!-- Transformation from base to actuated lidar -->
+      <origin xyz="0.2 0.0 0.1415" rpy="1.57079632679 0.0 1.57079632679"/>
+      <!-- Dynamixel joint axis -->
+      <axis xyz="0 0 -1"/>
+      <!-- Calibration transformation from axis aligned dynamixel to its actual pose -->
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <!-- Calibration transformation from axis aligned hokuyo to its actual pose -->
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    </xacro:actuated_lidar>
+  </xacro:if>
+
+  <!-- Velodyne -->
+  <xacro:if value="$(arg velodyne)">
+    <xacro:include filename="$(find anymal_description)/urdf/modules/velodyne/anymal_velodyne.urdf.xacro"/>
+    <xacro:anymal_velodyne name="velodyne" parent="base">
+      <!-- Transformation from base to velodyne mount -->
+      <origin xyz="-0.143 0.0 0.2535" rpy="0 0 0"/>
+      <!-- Calibration transformation from axis aligned velodyne to its actual pose -->
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    </xacro:anymal_velodyne>
+  </xacro:if>
+
+  <!-- Realsense -->
+  <xacro:if value="$(arg realsense)">
+    <xacro:include filename="$(find anymal_description)/urdf/modules/realsense/anymal_realsense.urdf.xacro"/>
+    <xacro:anymal_realsense name="realsense_zr300" parent="base" side="front" mounted_angle_degree="47.2956">
+      <!-- Calibration transformation from axis aligned realsense mount to its actual pose -->
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <!-- Calibration transformation from axis aligned realsense camera to its actual pose -->
+      <origin xyz="0.02 -0.029 -0.012" rpy="0.0 0.0 0.0"/>
+    </xacro:anymal_realsense>
+  </xacro:if>
+
+</robot>

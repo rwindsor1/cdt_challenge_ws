@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+  
+<launch>
+
+  <!-- Set true for simulation -->
+  <arg name="simulation" default="false"/>
+  
+  <!-- The output can either be screen, log or an empty string -->
+  <arg name="output" default="screen"/>
+  
+  <!-- Terminal launch prefix -->
+  <arg name="launch_prefix" default=""/>
+  
+  <!-- The config file of the filter  -->
+  <arg name="filter_config_file" default="$(find anymal_state_estimator_lwf)/config/filter.info"/>
+  
+  <!-- The config files for the feet -->
+  <arg name="foot_lf_config_file" default=""/>
+  <arg name="foot_rf_config_file" default=""/>
+  <arg name="foot_lh_config_file" default=""/>
+  <arg name="foot_rh_config_file" default=""/>
+
+  <!-- Load parameters for the ROS node -->
+  <rosparam command="load" ns="state_estimator" file="$(find anymal_state_estimator_lwf)/config/parameters.yaml"/>
+  <rosparam command="load" ns="state_estimator" file="$(find anymal_state_estimator_lwf)/config/standalone.yaml"/>
+  <rosparam command="load" ns="state_estimator" file="$(find anymal_state_estimator_lwf)/config/publishers.yaml"/>
+  <rosparam command="load" ns="state_estimator" file="$(find anymal_state_estimator_lwf)/config/subscribers.yaml"/>
+  <rosparam command="load" ns="state_estimator" file="$(find anymal_state_estimator_lwf)/config/services.yaml"/>
+  
+  <!-- Load parameters for the feet -->
+  <rosparam command="load" file="$(arg foot_lf_config_file)"/>
+  <rosparam command="load" file="$(arg foot_rf_config_file)"/>
+  <rosparam command="load" file="$(arg foot_lh_config_file)"/>
+  <rosparam command="load" file="$(arg foot_rh_config_file)"/>
+  
+  <!-- Launch the state estimator -->
+  <node name="state_estimator" 
+  		pkg="anymal_state_estimator_lwf" 
+  		type="anymal_state_estimator_lwf_node" 
+  		output="$(arg output)" 
+  		launch-prefix="$(arg launch_prefix)">
+    <param name="simulation"                   value="$(arg simulation)"/>
+    <param name="time_step"                    value="0.0025"/>
+    <param name="estimator/filter_config_file" value="$(arg filter_config_file)"/>
+  </node> 
+
+</launch>
+

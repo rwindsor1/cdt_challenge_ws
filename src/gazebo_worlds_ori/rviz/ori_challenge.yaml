@@ -1,0 +1,97 @@
+models:
+ - box:
+    name: "step_1"
+    frame_id: "stairs"
+    position:
+      x: 0.12
+      y: 0.0
+      z: 0.225
+    orientation:
+      x: 0.0
+      y: 0.0
+      z: 0.0
+      w: 1.0
+    scale:
+      x: 0.24
+      y: 0.8
+      z: 0.04
+ - box:
+    name: "step_2"
+    frame_id: "stairs"
+    position:
+      x: 0.295
+      y: 0.0
+      z: 0.44
+    orientation:
+      x: 0.0
+      y: 0.0
+      z: 0.0
+      w: 1.0
+    scale:
+      x: 0.24
+      y: 0.8
+      z: 0.04
+ - box:
+    name: "step_3"
+    frame_id: "stairs"
+    position:
+      x: 0.47
+      y: 0.0
+      z: 0.655
+    orientation:
+      x: 0.0
+      y: 0.0
+      z: 0.0
+      w: 1.0
+    scale:
+      x: 0.24
+      y: 0.8
+      z: 0.04
+ - box:
+    name: "step_4"
+    frame_id: "stairs"
+    position:
+      x: 0.645
+      y: 0.0
+      z: 0.87
+    orientation:
+      x: 0.0
+      y: 0.0
+      z: 0.0
+      w: 1.0
+    scale:
+      x: 0.24
+      y: 0.8
+      z: 0.04
+ - box:
+    name: "step_5"
+    frame_id: "stairs"
+    position:
+      x: 0.82
+      y: 0.0
+      z: 1.085
+    orientation:
+      x: 0.0
+      y: 0.0
+      z: 0.0
+      w: 1.0
+    scale:
+      x: 0.24
+      y: 0.8
+      z: 0.04
+ - box:
+    name: "top"
+    frame_id: "stairs"
+    position:
+      x: 1.565
+      y: 0.0
+      z: 1.3
+    orientation:
+      x: 0.0
+      y: 0.0
+      z: 0.0
+      w: 1.0
+    scale:
+      x: 1.24
+      y: 0.8
+      z: 0.04

@@ -1,0 +1,49 @@
+models:
+ - box:
+    name: "slope_up"
+    frame_id: "odom"
+    position:
+      x: 1.95533648913 
+      y: 0.0
+      z: 0.295520206661 
+    orientation:
+      w: 0.988771077936
+      x: 0
+      y: -0.149438132474
+      z: 0
+    scale:
+      x: 2.0
+      y: 2
+      z: 0.01
+ - box:
+    name: "platform"
+    frame_id: "odom"
+    position:
+      x: 3.91067297825
+      y: 0.0
+      z: 0.591040413323
+    orientation:
+      w: 1
+      x: 0
+      y: 0
+      z: 0
+    scale:
+      x: 2.0
+      y: 2
+      z: 0.01
+ - box:
+    name: "slope_down"
+    frame_id: "odom"
+    position:
+      x: 5.86600946738
+      y: 0.0
+      z: 0.295520206661
+    orientation:
+      w: 0.988771077936
+      x: 0
+      y: 0.149438132474
+      z: 0
+    scale:
+      x: 2.0
+      y: 2
+      z: 0.01
