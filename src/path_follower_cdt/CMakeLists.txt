@@ -40,12 +40,7 @@ target_link_libraries(path_follower_cdt ${catkin_LIBRARIES})
 ## Application
 add_executable(path_follower_cdt_node
   src/path_follower_cdt/path_follower_cdt_node.cpp )
-target_link_libraries(path_follower_cdt_node ${catkin_LIBRARIES} lcm path_follower_cdt)
-
-
-add_executable(simple_heading_follower_node
-  src/path_follower_cdt/simple_heading_follower_node.cpp )
-target_link_libraries(simple_heading_follower_node ${catkin_LIBRARIES} lcm path_follower)
+target_link_libraries(path_follower_cdt_node ${catkin_LIBRARIES} path_follower_cdt)
 
 
 

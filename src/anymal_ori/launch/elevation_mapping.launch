@@ -13,7 +13,6 @@
     <rosparam if="$(eval sensor == 'actuated_lidar')" command="load" file="$(find elevation_mapping)/config/sensor_processors/hokuyo_utm-30lx.yaml"/>
     <rosparam if="$(eval sensor == 'velodyne')"       command="load" file="$(find elevation_mapping)/config/sensor_processors/velodyne_HDL-32E.yaml"/>
     <rosparam if="$(eval sensor == 'realsense')"      command="load" file="$(find elevation_mapping)/config/sensor_processors/realsense_ZR300.yaml"/>
-    <rosparam if="$(eval sensor == 'actuated_lidar_husky')" command="load" file="$(find elevation_mapping)/config/sensor_processors/hokuyo_utm-30lx.yaml"/>
   </node>
 
 </launch>

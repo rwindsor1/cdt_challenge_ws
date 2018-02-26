@@ -22,22 +22,12 @@
   <!-- Set true to fix the robot's main body in space -->
   <arg name="fixed"                                   default="false"/>
   <!-- Set the initial pose of the robot's main body -->
-  <!-- main starting point -->
   <arg name="x"                                       default="12.0"/>
   <arg name="y"                                       default="3.2"/>
   <arg name="z"                                       default="2.0"/>
   <arg name="roll"                                    default="0.0"/>
   <arg name="pitch"                                   default="0.0"/>
   <arg name="yaw"                                     default="0.0"/>
-  <!-- stair case -->
-  <!--
-  <arg name="x"                                       default="16.85"/>
-  <arg name="y"                                       default="9.45"/>
-  <arg name="z"                                       default="1.45"/>
-  <arg name="roll"                                    default="0.0"/>
-  <arg name="pitch"                                   default="0.0"/>
-  <arg name="yaw"                                     default="3.142"/>
-  -->
   <!-- Frame offsets -->
   <arg name="frame_odometry_offset_x"                 default="0.0"/>
   <arg name="frame_odometry_offset_y"                 default="0.0"/>
