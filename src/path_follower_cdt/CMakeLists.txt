@@ -43,6 +43,9 @@ add_executable(path_follower_cdt_node
 target_link_libraries(path_follower_cdt_node ${catkin_LIBRARIES} path_follower_cdt)
 
 
+add_executable(simple_heading_follower_node
+  src/path_follower_cdt/simple_heading_follower_node.cpp )
+target_link_libraries(simple_heading_follower_node ${catkin_LIBRARIES} path_follower)
 
 
 #############
@@ -62,6 +65,6 @@ install(DIRECTORY include/${PROJECT_NAME}/
 
 
 ############ Python
-#catkin_python_setup()
+catkin_python_setup()
 #catkin_install_python(PROGRAMS scripts/high_level_actions/high_level_actions.py
 #                      DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
