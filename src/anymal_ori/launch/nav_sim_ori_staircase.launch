@@ -1,6 +1,0 @@
-<launch>
-
-  <include file="$(find anymal_ori)/launch/nav_sim.launch">
-    <arg name="world"                    value="ori_staircase"/>
-  </include>
-</launch>
