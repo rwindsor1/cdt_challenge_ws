@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<launch>
+
+  <!-- Name of the standard data package to locate gazebo and rviz worlds, models etc. -->
+  <arg name="data_package"                            default="gazebo_worlds_cdt"/>
+  <!-- Model path -->
+  <!-- If the world is not found in a "linked" devel space layout (see catkin config), this might help: -->
+  <!-- "$(find gazebo_worlds)/../../.private/gazebo_worlds/share" -->
+  <arg name="model_path"                              default="$(eval find(data_package) + '/..')"/>
+  <!-- Name of the world -->
+  <arg name="world"                                   default="empty"/>
+  <!-- Enable/disable localization messages from Gazebo, requires estimator to be simulated as well -->
+  <arg name="simulate_localizer"                      default="true"/>
+  <!-- Set the initial pose of the robot's main body -->
+  <arg name="x"                                       default="0.0"/>
+  <arg name="y"                                       default="0.0"/>
+  <arg name="z"                                       default="0.8"/>
+  <arg name="yaw"                                     default="0.0"/>
+  <!-- Path to the RViz configuration file -->
+  <arg name="rviz_config_path"                        default="$(find anymal_sim_cdt)/config/rviz/config.rviz"/>
+  <!-- Path to the rqt perspective file -->
+  <arg name="rqt_perspective_path"                    default="$(find anymal_b_navigation_ui)/config/rqt/rqt.perspective"/>
+  <!-- Specify if ICP mapper should load a map on launch -->
+  <arg name="icp_load_map_on_launch"                  default="false"/>
+
+  <!-- Simulation -->
+  <include file="$(find anymal_boxy_sim)/launch/sim.launch">
+    <arg name="velodyne"                              value="true"/>
+    <arg name="realsense"                             value="true"/>
+    <arg name="data_package"                          value="$(arg data_package)"/>
+    <arg name="world"                                 value="$(arg world)"/>
+    <arg name="simulate_estimator"                    value="true"/>
+    <arg name="simulate_localizer"                    value="$(arg simulate_localizer)"/>
+    <arg name="x"                                     value="$(arg x)"/>
+    <arg name="y"                                     value="$(arg y)"/>
+    <arg name="z"                                     value="$(arg z)"/>
+    <arg name="yaw"                                   value="$(arg yaw)"/>
+    <arg name="rviz_config_path"                      value="$(arg rviz_config_path)"/>
+    <arg name="rqt_perspective_path"                  value="$(arg rqt_perspective_path)"/>
+  </include>
+
+  <!-- Navigation -->
+  <include file="$(find anymal_boxy_navigation)/launch/navigation.launch">
+    <arg name="simulation"                            value="true"/>
+    <arg name="data_package"                          value="$(arg data_package)"/>
+    <arg name="world"                                 value="$(arg world)"/>
+    <arg name="run_icp"                               value="$(eval not simulate_localizer)"/>
+    <arg name="icp_load_map_on_launch"                value="$(arg icp_load_map_on_launch)"/>
+  </include>
+
+  <!-- Navigation user interface -->
+  <include file="$(find anymal_boxy_navigation_ui)/launch/ui.launch"/>
+
+</launch>

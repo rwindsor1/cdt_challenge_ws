@@ -1,0 +1,67 @@
+<?xml version="1.0" ?>
+<sdf version="1.4">
+  <world name="default">
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <!-- <model name="funnel_45_left"> -->
+        <include>
+          <static>true</static>
+            <pose>0 0 0 0 0 0</pose>
+          <uri>model://gazebo_worlds_cdt/models/funnel_left</uri>
+        </include>
+    <!-- </model> -->
+    <!-- <model name="funnel_45_right"> -->
+        <include>
+          <static>true</static>
+            <pose>3 1 0 0 0 1.571</pose>
+          <uri>model://gazebo_worlds_cdt/models/funnel_right</uri>
+        </include>
+    <!-- </model> -->
+    <!-- <model name="wall_straight"> -->
+        <include>
+          <static>true</static>
+            <pose>4 4 0 0 0 0</pose>
+          <uri>model://gazebo_worlds_cdt/models/wall_straight</uri>
+        </include>
+    <!-- </model> -->
+    <!-- <model name="wall_straight2"> -->
+        <include>
+          <static>true</static>
+            <pose>6 4 0 0 0 0</pose>
+          <uri>model://gazebo_worlds_cdt/models/wall_straight2</uri>
+        </include>
+    <!-- </model> -->
+    <!-- <model name="wall_straight3"> -->
+        <include>
+          <static>true</static>
+            <pose>8 4 0 0 0 0</pose>
+          <uri>model://gazebo_worlds_cdt/models/wall_straight3</uri>
+        </include>
+    <!-- </model> -->
+    <!-- <model name="step_pallets_1"> -->
+        <include>
+          <static>true</static>
+            <pose>10 4.5 0 0 0.0 0</pose>
+          <uri>model://gazebo_worlds_cdt/models/step_pallets_2</uri>
+        </include>
+    <!-- </model> -->
+    <!-- <model name="step_pallets_2"> -->
+        <include>
+          <static>true</static>
+            <pose>10 3.5 0 0 0.0 0</pose>
+          <uri>model://gazebo_worlds_cdt/models/step_pallets_1</uri>
+        </include>
+    <!-- </model> -->
+    <!-- <model name="april_box_16h5"> -->
+        <include>
+          <static>true</static>
+            <pose>11.5 4 0.5 0 0 0</pose>
+          <uri>model://gazebo_worlds_cdt/models/april_box_16h5</uri>
+        </include>
+    <!-- </model> -->
+  </world>
+</sdf>

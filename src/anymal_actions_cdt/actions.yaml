@@ -1,0 +1,7 @@
+actions:
+  - action:
+      id: celebration
+      name: celebration
+      file: actions/cdt/celebration.yaml
+      type: yaml
+      description: Celebrate upon reaching the goal position

@@ -24,11 +24,11 @@ struct CommandLineConfig
 
 class Pass{
   public:
-    Pass(ros::NodeHandle node_, 
+    Pass(ros::NodeHandle node_,
       const CommandLineConfig& cl_cfg_);
-    
+
     ~Pass(){
-    }    
+    }
   private:
     ros::NodeHandle node_;
 
@@ -57,7 +57,7 @@ Pass::Pass(ros::NodeHandle node_, const CommandLineConfig& cl_cfg_):
   drivingRvizSub_  = node_.subscribe(std::string("/goal"), 100, &Pass::newDrivingGoalRvizHandler, this);
   footstepSub_ = node_.subscribe(std::string("/footstep_plan_request"), 100, &Pass::newFootstepPlanRequestHandler, this);
 
-  positionControllerPub_ = node_.advertise<geometry_msgs::Twist>("/position_controller_cmd", 10);
+  positionControllerPub_ = node_.advertise<geometry_msgs::Twist>("/position_controller_cmd", 10); // @todo change to /position_controller/position_controller_cmd
   stopWalkingPub_ = node_.advertise<std_msgs::Int16>("/stop_walking_cmd",10);
 
   // diagnostics:
@@ -96,11 +96,11 @@ void Pass::newFootstepPlanRequestHandler(const geometry_msgs::PoseStampedConstPt
 
 void Pass::poseHandler(const geometry_msgs::PoseWithCovarianceStampedConstPtr& msg){
   ROS_INFO_THROTTLE(2,"got ROS pose");
-  int64_t msg_utime = (int64_t)floor(msg->header.stamp.toNSec() / 1000); 
+  int64_t msg_utime = (int64_t)floor(msg->header.stamp.toNSec() / 1000);
   Eigen::Isometry3d msg_pose = Eigen::Isometry3d::Identity();
   tf::poseMsgToEigen(msg->pose.pose, msg_pose);
 
-  
+
 
   std::cout << "DEVELOP POSITION CONTROLLER HERE\n";
   // send inputs to the provided class
@@ -133,12 +133,12 @@ void Pass::poseHandler(const geometry_msgs::PoseWithCovarianceStampedConstPtr& m
 
 
 
-  
+
 }
 
 int main( int argc, char** argv ){
   ros::init(argc, argv, "position_controller");
- 
+
   CommandLineConfig cl_cfg;
   ros::NodeHandle nh;
 

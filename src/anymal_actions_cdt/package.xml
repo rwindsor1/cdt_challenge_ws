@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>anymal_actions_cdt</name>
+  <version>0.1.4</version>
+  <description>A collection of actions using Free Gait from CDT Challenge.</description>
+  <maintainer email="email@address.edu">Maurice Fallon</maintainer>
+  <author email="email@address.edu">Maurice Fallon</author>
+  <license>Proprietary</license>
+  <url type="website">https://bitbucket.org/leggedrobotics/anymal_ctrl_free_gait</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>free_gait_action_loader</depend>
+  <depend>geometry_msgs</depend>
+  <depend>trajectory_msgs</depend>
+
+  <export>
+    <free_gait_action_loader actions="${prefix}/actions.yaml" />
+    <free_gait_action_loader collections="${prefix}/collections.yaml" />
+  </export>
+
+</package>

@@ -1,0 +1,6 @@
+collections:
+  - collection:
+     id: cdt
+     name: CDT
+     actions:
+      - celebration
