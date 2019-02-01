@@ -83,6 +83,9 @@ class NavigationDemo
   //! Grid map publisher.
   ros::Publisher outputGridmapPub_, footstepPlanRequestPub_;
 
+  //! Command publisher.
+  ros::Publisher actionPub_;
+
   //! Filter chain.
   filters::FilterChain<grid_map::GridMap> filterChain_;
 

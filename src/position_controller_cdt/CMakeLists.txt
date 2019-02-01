@@ -23,13 +23,10 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-
-
-
-
 ######################################################
 ## Declare a C++ library
 add_library(position_controller_cdt
+  src/position_controller_cdt/pass.cpp
   src/position_controller_cdt/position_controller_cdt.cpp
 )
 
@@ -39,11 +36,8 @@ target_link_libraries(position_controller_cdt ${catkin_LIBRARIES})
 
 ## Application
 add_executable(position_controller_cdt_node
-  src/position_controller_cdt/position_controller_cdt_node.cpp )
+  src/position_controller_cdt_node.cpp )
 target_link_libraries(position_controller_cdt_node ${catkin_LIBRARIES} position_controller_cdt)
-
-
-
 
 #############
 ## Install ##

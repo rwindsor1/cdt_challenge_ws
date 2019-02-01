@@ -1,3 +1,5 @@
+#pragma once
+
 #include <iostream>
 #include <fstream>      // std::ifstream
 #include <stdio.h>
@@ -31,11 +33,12 @@ class PositionController{
       return current_goal_;
     }
 
-  private:
+    void quat_to_euler(Eigen::Quaterniond q, double& roll, double& pitch, double& yaw);
+    double constrainAngle(double x);
 
+  private:
     // variables:
     Eigen::Isometry3d current_goal_;
     Eigen::Vector3d output_linear_velocity_;
     Eigen::Vector3d output_angular_velocity_;
-
 };

@@ -43,7 +43,7 @@ NavigationDemo::NavigationDemo(ros::NodeHandle& nodeHandle, bool& success)
 
   outputGridmapPub_ = nodeHandle_.advertise<grid_map_msgs::GridMap>("/filtered_map", 1, true);
   footstepPlanRequestPub_ = nodeHandle_.advertise<geometry_msgs::PoseStamped>("/footstep_plan_request", 10);
-
+  actionPub_ = nodeHandle_.advertise<std_msgs::Int16>("/action_cmd", 10);
 
   // Setup filter chain.
   if (!filterChain_.configure(filterChainParametersName_, nodeHandle)) {
@@ -51,19 +51,19 @@ NavigationDemo::NavigationDemo(ros::NodeHandle& nodeHandle, bool& success)
     success = false;
     return;
   }
-
   
   success = true;
-
 
   verbose_ = false;
   verboseTimer_ = true;
   plannerEnabled_ = true; // start enabled
 }
 
+
 NavigationDemo::~NavigationDemo()
 {
 }
+
 
 bool NavigationDemo::readParameters()
 {
@@ -87,6 +87,7 @@ void NavigationDemo::tic(){
   lastTime_ = high_resolution_clock::now();
 }
 
+
 std::chrono::duration<double> NavigationDemo::toc(){
   auto nowTime = high_resolution_clock::now();
   duration<double> elapsedTime = duration_cast<milliseconds>(nowTime - lastTime_);
@@ -94,6 +95,7 @@ std::chrono::duration<double> NavigationDemo::toc(){
   // std::cout << elapsedTime.count() << "ms elapsed" << std::endl;    
   return elapsedTime;
 }
+
 
 void NavigationDemo::callback(const grid_map_msgs::GridMap& message)
 {
@@ -104,7 +106,6 @@ void NavigationDemo::callback(const grid_map_msgs::GridMap& message)
 
   // The all important position goal - get the robot there
   Position pos_goal(8.5,4.0);
-
 
   Eigen::Isometry3d pose_robot = Eigen::Isometry3d::Identity();
   if(demoMode_){ // demoMode
@@ -180,6 +181,13 @@ bool NavigationDemo::planCarrot(const grid_map_msgs::GridMap& message,
     std::cout << current_dist_to_goal << "m to goal. carrot is goal\n";
     // disable carrot planner
     plannerEnabled_ = false;
+
+    // Send message to position_controller to start free gait action
+    std_msgs::Int16 actionMsg;
+    actionMsg.data = 1;
+    ros::Duration(1.0).sleep();
+    actionPub_.publish(actionMsg);
+
     return true;
   }
 
