@@ -340,6 +340,7 @@ bool NavigationDemo::planCarrot(const grid_map_msgs::GridMap& message,
   if (verboseTimer_) std::cout << toc().count() << "ms: publish output\n";
 
   std::cout << "finish - carrot planner\n\n";
+  // a comment
 
 
   pose_chosen_carrot.translation().x() = carrot_pos_x;
