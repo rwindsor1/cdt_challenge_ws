@@ -230,7 +230,7 @@ bool NavigationDemo::planCarrot(const grid_map_msgs::GridMap& message,
     ROS_ERROR("Could not update the grid map filter chain!");
     return false;
   }
-  if (verboseTimer_) std::cout << toc().count() << "ms: filter chain\n";
+  //if (verboseTimer_) std::cout << toc().count() << "ms: filter chain\n";
 
 
   ////// Put your code here ////////////////////////////////////
@@ -239,9 +239,11 @@ bool NavigationDemo::planCarrot(const grid_map_msgs::GridMap& message,
   double current_roll, current_pitch, current_yaw;
   Eigen::Quaterniond robot_q(pose_robot.rotation());
   quat_to_euler(robot_q, current_roll, current_pitch, current_yaw);
+
   const double pi= 3.14159265;
   double robot_heading_x = cos(current_yaw);
   double robot_heading_y = sin(current_yaw);
+
   std::cout << current_yaw << std::endl;
   std::cout << "goal is at: \n" <<pos_goal << std::endl;
   std::cout << "robot is at : \n" <<pos_robot <<std::endl;
@@ -263,7 +265,7 @@ bool NavigationDemo::planCarrot(const grid_map_msgs::GridMap& message,
 
 
   // vector pointing from the robot to the goal of magnitude 1
-  Eigen::Vector3d robot_heading(robot_heading_x, robot_heading_y, 0);
+
   //Position pt = Position(robot_heading_x.head(2));
 
   // vector pointing in direction of the robot
@@ -282,9 +284,11 @@ bool NavigationDemo::planCarrot(const grid_map_msgs::GridMap& message,
   else{
     positive_rotation = false;
   }
-  double carrot_pos_x;
-  double carrot_pos_y;
-
+  double carrot_pos_x = 1;
+  double carrot_pos_y= 0;
+  int rotation_counter = 0;
+  double original_heading_x = robot_heading_x;
+  double original_heading_y = robot_heading_y;
   while(!vector_ok){
 
 
@@ -292,7 +296,7 @@ bool NavigationDemo::planCarrot(const grid_map_msgs::GridMap& message,
     // for each orientation
     bool bad_terrain_flag = false;
 
-    for(int i = 0 ; i < 100; i++ ) {
+    for(int i = 0 ; i < 120; i++ ) {
       // position to check traversability at
       Position test_pos(pos_robot[0]+robot_heading_x*i*.01, pos_robot[1]+robot_heading_y*0.01*i);
 
@@ -319,9 +323,17 @@ bool NavigationDemo::planCarrot(const grid_map_msgs::GridMap& message,
     }
     else{
       //terrain is bad so rotate vector
-      robot_heading_x = robot_heading_x*cos(pi/6)-robot_heading_y*sin(pi/6);
-      robot_heading_y = robot_heading_x*sin(pi/6)+robot_heading_y*cos(pi/6);
+      robot_heading_x = robot_heading_x*cos(pi/4)-robot_heading_y*sin(pi/4);
+      robot_heading_y = robot_heading_x*sin(pi/4)+robot_heading_y*cos(pi/4);
       std::cout<<"ROTATED!"<<std::endl;
+      rotation_counter += 1;
+      if(rotation_counter > 12){
+        std::cout <<" WARNING: Rotated right round" << std::endl;
+
+        carrot_pos_x = pos_robot[0]+original_heading_x;
+        carrot_pos_y = pos_robot[1]+original_heading_y;
+        vector_ok = true;
+      }
     }
   }
 
@@ -341,11 +353,13 @@ bool NavigationDemo::planCarrot(const grid_map_msgs::GridMap& message,
 
   std::cout << "finish - carrot planner\n\n";
   // a comment
-
-
+  double target_yaw = atan2(carrot_pos_y-pos_robot[1],carrot_pos_x-pos_robot[0]);
+  Eigen::Quaterniond carrot_q = euler_to_quat(target_yaw,0,0);
+  std::cout << "Carrot pos x : " << carrot_pos_x << std::endl;
+  std::cout << "Carrot pos y : " << carrot_pos_y << std::endl;
   pose_chosen_carrot.translation().x() = carrot_pos_x;
   pose_chosen_carrot.translation().y() = carrot_pos_y;
-
+  pose_chosen_carrot.linear() = carrot_q.matrix();
   // REMOVE THIS -----------------------------------------
 
   return true;
