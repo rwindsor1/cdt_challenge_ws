@@ -51,7 +51,7 @@ FOLLOWER_OUTPUT PositionController::computeControlCommand(Eigen::Isometry3d curr
 
   // Linear:
   linear_forward_x = 0.2; //speed forward 10
-  linear_forward_y = 0;
+  linear_forward_y = 0.1;
 
   std::cout << "current_yaw: " << current_yaw << ", raw error: " << headingErrorRaw
             << ", constrained error: " << headingError << ", des ang vel: " << angular_velocity << std::endl;
