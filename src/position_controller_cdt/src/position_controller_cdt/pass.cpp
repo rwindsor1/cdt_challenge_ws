@@ -1,4 +1,6 @@
 #include "position_controller_cdt/pass.hpp"
+#include <geometry_msgs/WrenchStamped.h>
+#include <std_msgs/Header.h>
 
 using namespace std;
 
@@ -23,6 +25,9 @@ Pass::Pass(ros::NodeHandle node_) {
   controllerClient_ = node_.serviceClient<rocoma_msgs::SwitchController>("/anymal_highlevel_controller/switch_controller");
   modeClient_ = node_.serviceClient<anymal_msgs::SwitchController>("/trot_ros/go_to_mode");
   actionClient_ = node_.serviceClient<free_gait_msgs::SendAction>("/free_gait_action_loader/send_action");
+
+ 
+  visualizeVelocityGoalPub_ = node_.advertise<geometry_msgs::WrenchStamped>("/position_controller/velocity_goal", 10);
 
   controllerSrv_.request.name = "trot_ros";
   int status;
@@ -115,6 +120,21 @@ void Pass::poseHandler(const geometry_msgs::PoseWithCovarianceStampedConstPtr& m
   cmd.angular.y = output_angular_velocity(1);
   cmd.angular.z = output_angular_velocity(2);
   positionControllerPub_.publish(cmd);
+
+  geometry_msgs::WrenchStamped ws;
+  std_msgs::Header msg_header;
+  ws.header = msg_header;
+  ws.header.frame_id = "base";
+  ws.wrench.force.x = output_linear_velocity(0); /// insert your variable names
+  ws.wrench.force.y = output_linear_velocity(1);
+  ws.wrench.force.z = 0;
+  ws.wrench.torque.x = 0;
+  ws.wrench.torque.y = 0;
+  // for some reason rviz wont visualise this if negative
+  ws.wrench.torque.z = fabs( output_angular_velocity(2));
+
+  visualizeVelocityGoalPub_.publish(ws);
+
 
   // Visualize the current goal
   geometry_msgs::PoseStamped m;

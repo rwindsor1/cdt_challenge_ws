@@ -42,6 +42,7 @@ class Pass{
     ros::Subscriber stopSub_, poseSub_, drivingRvizSub_, footstepSub_;
     ros::Publisher positionControllerPub_,stopWalkingPub_;
     ros::Publisher visualizeCurrentGoalPub_, visualizeRemainingGoalsPub_;
+    ros::Publisher visualizeVelocityGoalPub_;
 
     // Used by the celebratory action
     void startActionHandler(const std_msgs::Int16 actionMsg);
