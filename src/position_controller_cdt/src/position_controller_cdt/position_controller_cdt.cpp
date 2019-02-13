@@ -51,7 +51,7 @@ FOLLOWER_OUTPUT PositionController::computeControlCommand(Eigen::Isometry3d curr
 
   // Linear:
   linear_forward_x = 0.2; //speed forward 10
-  linear_forward_y = 0.1;
+ // linear_forward_y = 0.1;
 
   std::cout << "current_yaw: " << current_yaw << ", raw error: " << headingErrorRaw
             << ", constrained error: " << headingError << ", des ang vel: " << angular_velocity << std::endl;
@@ -61,7 +61,7 @@ FOLLOWER_OUTPUT PositionController::computeControlCommand(Eigen::Isometry3d curr
 
   // set outputs
   output_linear_velocity_ = Eigen::Vector3d(linear_forward_x, linear_forward_y, 0);
-  output_linear_velocity_ = Eigen::AngleAxisd(-current_yaw,Eigen::Vector3d::UnitZ()) * output_linear_velocity_;
+  output_linear_velocity_ = Eigen::AngleAxisd(goal_yaw,Eigen::Vector3d::UnitZ()) * output_linear_velocity_;
   output_angular_velocity_ = Eigen::Vector3d(0,0, angular_velocity) ;
   return SEND_COMMAND;
 }

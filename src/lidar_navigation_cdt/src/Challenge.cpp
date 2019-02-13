@@ -256,10 +256,10 @@ bool NavigationDemo::planCarrot(const grid_map_msgs::GridMap& message,
 
 
   // if robot more than a meter from the goal, set carrot to no more than 1 meter away
-  if(current_dist_to_goal > 1.0){
-    goal_x = goal_x/current_dist_to_goal;
-    goal_y = goal_y/current_dist_to_goal;
-  }
+//  if(current_dist_to_goal > 5){
+//    goal_x = goal_x*5/current_dist_to_goal;
+ //   goal_y = goal_y*5/current_dist_to_goal;
+ // }
 
 
 
@@ -286,7 +286,9 @@ bool NavigationDemo::planCarrot(const grid_map_msgs::GridMap& message,
   }
   double carrot_pos_x = 1;
   double carrot_pos_y= 0;
-  int rotation_counter = 0;
+  int rotation_counter = 1;
+  double angle;
+  double cone_angle = pi/18;
   double original_heading_x = robot_heading_x;
   double original_heading_y = robot_heading_y;
   while(!vector_ok){
@@ -295,25 +297,35 @@ bool NavigationDemo::planCarrot(const grid_map_msgs::GridMap& message,
 
     // for each orientation
     bool bad_terrain_flag = false;
+    double test_x;
+    double test_y;
+    for(int j = 0; j < 3; j++){
+	if(j==0){ test_x = robot_heading_x; test_y = robot_heading_y; }
+	if(j==1){ test_x = robot_heading_x*cos(cone_angle)-robot_heading_y*sin(cone_angle);
+		  test_y = robot_heading_x*sin(cone_angle)+robot_heading_y*cos(cone_angle);
+		}
+	if(j==2){ test_x = robot_heading_x*cos(-cone_angle)-robot_heading_y*sin(-cone_angle);
+		  test_y = robot_heading_x*sin(-cone_angle)+robot_heading_y*cos(-cone_angle);
+		}
+	for(int i = 0 ; i < 140; i++ ) {
+		// position to check traversability at
+	      Position test_pos(pos_robot[0]+test_x*i*.01, pos_robot[1]+test_y*0.01*i);
 
-    for(int i = 0 ; i < 120; i++ ) {
-      // position to check traversability at
-      Position test_pos(pos_robot[0]+robot_heading_x*i*.01, pos_robot[1]+robot_heading_y*0.01*i);
-
-      // if position is inside the test map and traversability <
-      if ( outputMap.isInside(test_pos) ){
-        Index pt_index;
-        outputMap.getIndex( test_pos, pt_index );
-        Position pt_cell;
-        outputMap.getPosition(pt_index, pt_cell);
-        if(outputMap.at("traversability", pt_index) < 1.0){
-          bad_terrain_flag = true;
-        }
-      }
-      else{
-        std::cout << "ERROR: test carrot is outside the map" << std::endl;
-      }
-    }
+	      // if position is inside the test map and traversability <
+	      if ( outputMap.isInside(test_pos) ){
+		Index pt_index;
+		outputMap.getIndex( test_pos, pt_index );
+		Position pt_cell;
+		outputMap.getPosition(pt_index, pt_cell);
+		if(outputMap.at("traversability", pt_index) < 1.0){
+		  bad_terrain_flag = true;
+		}
+	      }
+	      else{
+		std::cout << "ERROR: test carrot is outside the map" << std::endl;
+	      }
+	    }
+}
 
     if(bad_terrain_flag == false){
       vector_ok = true;
@@ -323,11 +335,15 @@ bool NavigationDemo::planCarrot(const grid_map_msgs::GridMap& message,
     }
     else{
       //terrain is bad so rotate vector
-      robot_heading_x = robot_heading_x*cos(pi/4)-robot_heading_y*sin(pi/4);
-      robot_heading_y = robot_heading_x*sin(pi/4)+robot_heading_y*cos(pi/4);
+      angle = rotation_counter*pi/18;
+      if((rotation_counter % 2) == 0){
+         angle = -angle;
+	}
+      robot_heading_x = robot_heading_x*cos(angle)-robot_heading_y*sin(angle);
+      robot_heading_y = robot_heading_x*sin(angle)+robot_heading_y*cos(angle);
       std::cout<<"ROTATED!"<<std::endl;
       rotation_counter += 1;
-      if(rotation_counter > 12){
+      if(rotation_counter > 24){
         std::cout <<" WARNING: Rotated right round" << std::endl;
 
         carrot_pos_x = pos_robot[0]+original_heading_x;
