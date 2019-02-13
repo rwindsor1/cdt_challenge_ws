@@ -308,7 +308,7 @@ bool NavigationDemo::planCarrot(const grid_map_msgs::GridMap& message,
 	if(j==2){ test_x = robot_heading_x*cos(-cone_angle)-robot_heading_y*sin(-cone_angle);
 		  test_y = robot_heading_x*sin(-cone_angle)+robot_heading_y*cos(-cone_angle);
 		}
-	for(int i = 0 ; i < 140; i++ ) {
+	for(int i = 0 ; i < 180; i++ ) {
 		// position to check traversability at
 	      Position test_pos(pos_robot[0]+test_x*i*.01, pos_robot[1]+test_y*0.01*i);
 
@@ -374,7 +374,8 @@ bool NavigationDemo::planCarrot(const grid_map_msgs::GridMap& message,
   std::cout << "finish - carrot planner\n\n";
   // a comment
   double target_yaw = atan2(carrot_pos_y-pos_robot[1],carrot_pos_x-pos_robot[0]);
-  Eigen::Quaterniond carrot_q = euler_to_quat(target_yaw,0,0);
+  double final_goal_yaw = atan2(pos_goal[1]-pos_robot[1],pos_goal[0]-pos_robot[0]);
+  Eigen::Quaterniond carrot_q = euler_to_quat(final_goal_yaw,0,0);
   std::cout << "Carrot pos x : " << carrot_pos_x << std::endl;
   std::cout << "Carrot pos y : " << carrot_pos_y << std::endl;
   if(goal_x <2){
