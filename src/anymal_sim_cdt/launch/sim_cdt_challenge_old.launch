@@ -1,0 +1,18 @@
+<launch>
+
+  <include file="$(find anymal_sim_cdt)/launch/sim.launch">
+    <arg name="world"                    value="cdt_challenge_old"/>
+
+    <!-- origin - near landing: 0.0, 0.0, 0.8, 0.0, 0.0, 0.0 -->
+
+    <!-- ori outside of building: -6.5, 0.0, 0.0, 0.0, 0.0, 0.0 -->
+    <!-- ori bottom of entrance staircase: -4.5, 0.0, 0.0, 0.0, 0.0, 0.0 -->
+    <!-- ori top of entrance staircase: -2.5, 0.0, 0.8, 0.0, 0.0, 0.0 -->
+    <!-- ori bottom of main staircase: 3.05, 3.0, 0.8, 0.0, 0.0, 0.0 -->
+    <arg name="x"                                       default="0.0"/>
+    <arg name="y"                                       default="0.0"/>
+    <arg name="z"                                       default="0.8"/>
+    <arg name="yaw"                                     default="0.0"/>
+
+  </include>
+</launch>

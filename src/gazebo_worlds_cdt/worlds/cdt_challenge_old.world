@@ -42,54 +42,25 @@
           <uri>model://gazebo_worlds_cdt/models/wall_straight3</uri>
         </include>
     <!-- </model> -->
-    <!-- <model name="wall_straight4"> -->
-        <include>
-          <static>true</static>
-            <pose>10 4 0 0 0 0</pose>
-          <uri>model://gazebo_worlds_cdt/models/wall_straight4</uri>
-        </include>
-    <!-- </model> -->
-    <!-- <model name="wall_straight5"> -->
-        <include>
-          <static>true</static>
-            <pose>12 4 0 0 0 0</pose>
-          <uri>model://gazebo_worlds_cdt/models/wall_straight5</uri>
-        </include>
-    <!-- </model> -->
-    <!-- <model name="wall_straight6"> -->
-        <include>
-          <static>true</static>
-            <pose>14 4 0 0 0 0</pose>
-          <uri>model://gazebo_worlds_cdt/models/wall_straight6</uri>
-        </include>
-    <!-- </model> -->
     <!-- <model name="step_pallets_1"> -->
         <include>
           <static>true</static>
-            <pose>16 4.5 0 0 0.0 0</pose>
+            <pose>10 4.5 0 0 0.0 0</pose>
           <uri>model://gazebo_worlds_cdt/models/step_pallets_2</uri>
         </include>
     <!-- </model> -->
     <!-- <model name="step_pallets_2"> -->
         <include>
           <static>true</static>
-            <pose>16 3.5 0 0 0.0 0</pose>
+            <pose>10 3.5 0 0 0.0 0</pose>
           <uri>model://gazebo_worlds_cdt/models/step_pallets_1</uri>
         </include>
     <!-- </model> -->
     <!-- <model name="april_box_16h5"> -->
         <include>
           <static>true</static>
-            <pose>17.5 4 0.5 0 0 0</pose>
+            <pose>11.5 4 0.5 0 0 0</pose>
           <uri>model://gazebo_worlds_cdt/models/april_box_16h5</uri>
-        </include>
-    <!-- </model> -->
-    <!-- <model name="april_box_16h5"> -->
-        <include>
-          <static>true</static>
-            <pose>8 4 0 0 0 0</pose>
-            <scale> 0.5 </scale>
-          <uri>model://gazebo_worlds_cdt/models/obstacle_course</uri>
         </include>
     <!-- </model> -->
   </world>

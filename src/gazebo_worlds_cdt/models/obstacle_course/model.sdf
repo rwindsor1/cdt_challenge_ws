@@ -1,0 +1,389 @@
+<?xml version="1.0"?>
+<sdf version="1.4">
+  <model name="obstacle_course">
+    <pose>0 0 0 0 0 0</pose>
+    <static>true</static>
+    
+    <link name="cyl_left_near_corner">
+      <pose>2 -1.5 0.736 0.0 -0.0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>0.2</radius>
+            <length>1.0</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>0.2</radius>
+            <length>1.0</length>
+          </cylinder>
+        </geometry>
+        <material/>
+      </visual>
+    </link>
+    <link name="cyl_right_near_corner">
+      <pose>2 1.5 0.736 0.0 -0.0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>0.2</radius>
+            <length>1.0</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>0.2</radius>
+            <length>1.0</length>
+          </cylinder>
+        </geometry>
+        <material/>
+      </visual>
+    </link>
+    <link name="cyl_left_far_corner">
+      <pose>6 -1.5 0.736 0.0 -0.0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>0.2</radius>
+            <length>1.0</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>0.2</radius>
+            <length>1.0</length>
+          </cylinder>
+        </geometry>
+        <material/>
+      </visual>
+    </link>
+    <link name="cyl_far_near_corner">
+      <pose>6 1.5 0.736 0.0 -0.0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>0.2</radius>
+            <length>1.0</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>0.2</radius>
+            <length>1.0</length>
+          </cylinder>
+        </geometry>
+        <material/>
+      </visual>
+    </link>
+
+    <link name="cyl_1_01">
+      <pose>0.5 -0.7 0.736 0.0 -0.0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>0.0500</radius>
+            <length>1.4800</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>0.0500</radius>
+            <length>1.4800</length>
+          </cylinder>
+        </geometry>
+        <material/>
+      </visual>
+    </link>
+    <link name="cyl_1_02">
+      <pose>0.5 -0.4 0.736 0.0 -0.0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>0.0500</radius>
+            <length>1.4800</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>0.0500</radius>
+            <length>1.4800</length>
+          </cylinder>
+        </geometry>
+        <material/>
+      </visual>
+    </link>
+    <link name="cyl_2_01">
+      <pose>1.8 0.6 0.736 0.0 -0.0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>0.0500</radius>
+            <length>1.4800</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>0.0500</radius>
+            <length>1.4800</length>
+          </cylinder>
+        </geometry>
+        <material/>
+      </visual>
+    </link>
+    <link name="cyl_2_02">
+      <pose>1.8 0.3 0.736 0.0 -0.0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>0.0500</radius>
+            <length>1.4800</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>0.0500</radius>
+            <length>1.4800</length>
+          </cylinder>
+        </geometry>
+        <material/>
+      </visual>
+    </link>
+    <link name="cyl_3_01">
+      <pose>3.2 -0.6 0.736 0.0 -0.0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>0.0500</radius>
+            <length>1.4800</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>0.0500</radius>
+            <length>1.4800</length>
+          </cylinder>
+        </geometry>
+        <material/>
+      </visual>
+    </link>
+    <link name="cyl_3_02">
+      <pose>3.15 -0.4 0.736 0.0 -0.0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>0.0500</radius>
+            <length>1.4800</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>0.0500</radius>
+            <length>1.4800</length>
+          </cylinder>
+        </geometry>
+        <material/>
+      </visual>
+    </link>
+    <link name="cyl_3_03">
+      <pose>3.1 -0.2 0.736 0.0 -0.0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>0.0500</radius>
+            <length>1.4800</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>0.0500</radius>
+            <length>1.4800</length>
+          </cylinder>
+        </geometry>
+        <material/>
+      </visual>
+    </link>
+    <link name="cyl_3_04">
+      <pose>3.05 0 0.736 0.0 -0.0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>0.0500</radius>
+            <length>1.4800</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>0.0500</radius>
+            <length>1.4800</length>
+          </cylinder>
+        </geometry>
+        <material/>
+      </visual>
+    </link>
+    <link name="cyl_3_05">
+      <pose>3 0.2 0.736 0.0 -0.0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>0.0500</radius>
+            <length>1.4800</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>0.0500</radius>
+            <length>1.4800</length>
+          </cylinder>
+        </geometry>
+        <material/>
+      </visual>
+    </link>
+    <link name="cyl_4_01">
+      <pose>4.5 -1.2 0.736 0.0 -0.0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>0.0500</radius>
+            <length>1.4800</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>0.0500</radius>
+            <length>1.4800</length>
+          </cylinder>
+        </geometry>
+        <material/>
+      </visual>
+    </link>
+    <link name="cyl_4_02">
+      <pose>4.5 -0.9 0.736 0.0 -0.0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>0.0500</radius>
+            <length>1.4800</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>0.0500</radius>
+            <length>1.4800</length>
+          </cylinder>
+        </geometry>
+        <material/>
+      </visual>
+    </link> 
+    <link name="cyl_4_03">
+      <pose>4.5 -0.6 0.736 0.0 -0.0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>0.0500</radius>
+            <length>1.4800</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>0.0500</radius>
+            <length>1.4800</length>
+          </cylinder>
+        </geometry>
+        <material/>
+      </visual>
+    </link> 
+    <link name="cyl_4_04">
+      <pose>4.5 -0.3 0.736 0.0 -0.0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>0.0500</radius>
+            <length>1.4800</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>0.0500</radius>
+            <length>1.4800</length>
+          </cylinder>
+        </geometry>
+        <material/>
+      </visual>
+    </link> 
+    <link name="cyl_4_05">
+      <pose>4.5 0.0 0.736 0.0 -0.0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>0.0500</radius>
+            <length>1.4800</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>0.0500</radius>
+            <length>1.4800</length>
+          </cylinder>
+        </geometry>
+        <material/>
+      </visual>
+    </link> 
+    <link name="cyl_5_01">
+      <pose>5.8 0.8 0.736 0.0 -0.0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>0.0500</radius>
+            <length>1.4800</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>0.0500</radius>
+            <length>1.4800</length>
+          </cylinder>
+        </geometry>
+        <material/>
+      </visual>
+    </link> 
+  </model>
+</sdf>
