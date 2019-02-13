@@ -5,47 +5,45 @@ adapt_coordinates:
 
 steps:
 
- # Three legs.
+ - step:
+    - base_auto:
+
+ - step:
+    - end_effector_target:
+       name: RF_LEG
+       ignore_contact: true
+       target_position:
+        frame: footprint
+        position: [0.39, -0.24, 0.20]
+
+ - step:
+    - base_auto:
+       height: 0.38
+       ignore_timing_of_leg_motion: true
+    - end_effector_target: &foot
+       name: RF_LEG
+       ignore_contact: true
+       ignore_for_pose_adaptation: true
+       target_position:
+        frame: footprint
+        position: [0.39, -0.24, 0.20]
+
  - step:
     - base_auto:
        height: 0.45
-       support_margin: 0.09
-
- # Foot motion.
- - step: &step_foot_motion
-    - end_effector_trajectory:
-       name: LF_LEG
-       ignore_contact: true
-       ignore_for_pose_adaptation: true
-       trajectory:
-        frame: footprint
-        knots:
-         - time: 1.0
-           position: [0.2, 0.24, 0.10]
-         - time: 2.0
-           position: [0.6, 0.24, 0.10]
-         - time: 3.0
-           position: [0.32, 0.24, 0.0]
+       ignore_timing_of_leg_motion: true
+    - end_effector_target: *foot
 
  - step:
-    - base_auto:
-    - footstep:
-       name: LF_LEG
-       ignore_contact: false
-       profile_type: straight
-       target:
-        frame: footprint
-        position: [0.32, 0.24, 0.0]
+   - footstep:
+      name: RF_LEG
+      profile_type: straight
+      target:
+       frame: footprint
+       position: [0.32, -0.24, 0.0]
 
  - step:
    - base_auto:
 
- - step:
-   - joint_trajectory:
-      name: RF_LEG
-      ignore_contact: true
-      trajectory:
-       joint_names: [HAA, HFE, KFE]
-       knots:
-        - time: 1.1
-          positions: [deg(15), deg(-120), deg(-45)]
+
+
