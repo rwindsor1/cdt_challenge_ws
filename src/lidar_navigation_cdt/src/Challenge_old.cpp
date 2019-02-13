@@ -178,29 +178,9 @@ void NavigationDemo::callback(const grid_map_msgs::GridMap& message)
 }
 
 
-bool line_is_legit(double test_x, double test_y, double robot_pos_x, double robot_pos_y, grid_map::GridMap* outputMap){
-  for(int i = 0; i < 140; i++ ){
-    // position to check traversability at
-    Position test_pos(robot_pos_x+test_x*i*.01, robot_pos_y+test_y*0.01*i);
+bool line_is_legit(double test_x, double test_y){
 
-        // if position is inside the test map and traversability <
-    if ( outputMap->isInside(test_pos) ){
-    Index pt_index;
-    outputMap->getIndex( test_pos, pt_index );
-    Position pt_cell;
-    (*outputMap).getPosition(pt_index, pt_cell);
-    if(outputMap->at("traversability", pt_index) < 1.0){
-      return false;
-    }
-        }
-        else{
-    std::cout << "ERROR: test carrot is outside the map" << std::endl;
-    }
 }
-return true;
-}
-
-
 bool NavigationDemo::planCarrot(const grid_map_msgs::GridMap& message,
   Eigen::Isometry3d pose_robot, Position pos_goal,
   Eigen::Isometry3d& pose_chosen_carrot)
@@ -302,6 +282,14 @@ bool NavigationDemo::planCarrot(const grid_map_msgs::GridMap& message,
   // flag to check if current carrot is legit (traversabile)
 
   bool vector_ok  = false;
+  double heading_goal_dot_product = robot_heading_x*goal_x + goal_y*robot_heading_y;
+  bool positive_rotation;
+  if(heading_goal_dot_product > 0){
+    positive_rotation = true;
+  }
+  else{
+    positive_rotation = false;
+  }
   double carrot_pos_x = 1;
   double carrot_pos_y= 0;
   int rotation_counter = 1;
@@ -325,9 +313,24 @@ bool NavigationDemo::planCarrot(const grid_map_msgs::GridMap& message,
 	if(j==2){ test_x = robot_heading_x*cos(-cone_angle)-robot_heading_y*sin(-cone_angle);
 		  test_y = robot_heading_x*sin(-cone_angle)+robot_heading_y*cos(-cone_angle);
 		}
+	for(int i = 0 ; i < 140; i++ ) {
+		// position to check traversability at
+	  Position test_pos(pos_robot[0]+test_x*i*.01, pos_robot[1]+test_y*0.01*i);
 
-  //  double test_x, double test_y, double robot_pos_x, double robot_pos_y, grid_map::GridMap* outputMap
-  if(!line_is_legit(test_x,test_y,pos_robot[0],pos_robot[1],&outputMap)){bad_terrain_flag = true;}
+	      // if position is inside the test map and traversability <
+	  if ( outputMap.isInside(test_pos) ){
+		Index pt_index;
+		outputMap.getIndex( test_pos, pt_index );
+		Position pt_cell;
+		outputMap.getPosition(pt_index, pt_cell);
+		if(outputMap.at("traversability", pt_index) < 1.0){
+		  bad_terrain_flag = true;
+		}
+	      }
+	      else{
+		std::cout << "ERROR: test carrot is outside the map" << std::endl;
+	      }
+	    }
 }
 
     if(bad_terrain_flag == false){
