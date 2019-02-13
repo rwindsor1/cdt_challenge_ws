@@ -47,7 +47,7 @@ FOLLOWER_OUTPUT PositionController::computeControlCommand(Eigen::Isometry3d curr
   double y_disp = current_goal_.translation()[1]-current_pose.translation()[1];
   double x_disp = current_goal_.translation()[0]-current_pose.translation()[0];
   double distance_to_goal = sqrt(y_disp*y_disp + x_disp*x_disp);
-  double alpha = 10/distance_to_goal;
+  double alpha = 0.1/distance_to_goal;
   double target_yaw = (alpha*goal_pose_yaw + goal_heading_yaw/alpha)/(alpha + 1/alpha);
 
   // compute the P control output:

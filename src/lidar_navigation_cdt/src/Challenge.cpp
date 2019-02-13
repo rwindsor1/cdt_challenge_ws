@@ -122,6 +122,7 @@ std::chrono::duration<double> NavigationDemo::toc(){
   lastTime_ = nowTime;
   // std::cout << elapsedTime.count() << "ms elapsed" << std::endl;
   return elapsedTime;
+
 }
 
 
@@ -326,6 +327,9 @@ bool NavigationDemo::planCarrot(const grid_map_msgs::GridMap& message,
 	      }
 	    }
 }
+    double carrot_distance = 1.5;
+    robot_heading_x = carrot_distance*robot_heading_x/sqrt(robot_heading_x*robot_heading_x+ robot_heading_y*robot_heading_y);
+    robot_heading_y = carrot_distance*robot_heading_y/sqrt(robot_heading_x*robot_heading_x+ robot_heading_y*robot_heading_y);
 
     if(bad_terrain_flag == false){
       vector_ok = true;
@@ -373,6 +377,10 @@ bool NavigationDemo::planCarrot(const grid_map_msgs::GridMap& message,
   Eigen::Quaterniond carrot_q = euler_to_quat(target_yaw,0,0);
   std::cout << "Carrot pos x : " << carrot_pos_x << std::endl;
   std::cout << "Carrot pos y : " << carrot_pos_y << std::endl;
+  if(goal_x <2){
+    carrot_pos_x = pos_goal[0];
+    carrot_pos_y = pos_goal[1];
+  }
   pose_chosen_carrot.translation().x() = carrot_pos_x;
   pose_chosen_carrot.translation().y() = carrot_pos_y;
   pose_chosen_carrot.linear() = carrot_q.matrix();
