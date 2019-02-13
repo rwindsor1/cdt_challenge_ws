@@ -53,7 +53,7 @@ FOLLOWER_OUTPUT PositionController::computeControlCommand(Eigen::Isometry3d curr
   // compute the P control output:
   // double headingErrorRaw = current_yaw - goal_heading_yaw;
   // double headingError = constrainAngle(headingErrorRaw);
-  double angular_gain_p_ = 1; //1
+  double angular_gain_p_ = 3; //1
   //
   // double poseErrorRaw = current_yaw - goal_pose_yaw;
   // double poseError = constrainAngle(poseErrorRaw)
@@ -61,9 +61,9 @@ FOLLOWER_OUTPUT PositionController::computeControlCommand(Eigen::Isometry3d curr
   double targetError = constrainAngle(current_yaw - target_yaw);
 
   angular_velocity = -targetError * angular_gain_p_ ;
-
   // Linear:
-  linear_forward_x = 0.2; //speed forward 10
+  std::cout<< "angular velocity "<< abs(angular_velocity) << std::endl;
+  linear_forward_x = 0.2;
  // linear_forward_y = 0.1;
 
   // std::cout << "current_yaw: " << current_yaw << ", raw error: " << headingErrorRaw
