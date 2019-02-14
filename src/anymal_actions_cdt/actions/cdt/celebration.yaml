@@ -18,21 +18,13 @@ steps:
 
  - step:
     - base_auto:
-       height: 0.18
+       height: 0.25
        ignore_timing_of_leg_motion: true
-    - end_effector_target: &foot
-       name: RF_LEG
-       ignore_contact: true
-       ignore_for_pose_adaptation: true
-       target_position:
-        frame: footprint
-        position: [0.39, -0.24, 0.20]
 
  - step:
     - base_auto:
        height: 0.45
        ignore_timing_of_leg_motion: true
-    - end_effector_target: *foot
 
  - step:
    - footstep:
@@ -44,3 +36,33 @@ steps:
 
  - step:
    - base_auto:
+
+ - step:
+    - end_effector_target:
+       name: LF_LEG
+       ignore_contact: true
+       target_position:
+        frame: footprint
+        position: [0.39, 0.24, 0.20]
+
+ - step:
+    - base_auto:
+       height: 0.25
+       ignore_timing_of_leg_motion: true
+
+ - step:
+    - base_auto:
+       height: 0.45
+       ignore_timing_of_leg_motion: true
+
+ - step:
+   - footstep:
+      name: LF_LEG
+      profile_type: straight
+      target:
+       frame: footprint
+       position: [0.32, 0.24, 0.0]
+
+ - step:
+   - base_auto:
+
