@@ -30,7 +30,7 @@ steps:
 
  - step:
     - base_auto:
-       height: 0.45 
+       height: 0.45
        ignore_timing_of_leg_motion: true
     - end_effector_target: *foot
 
@@ -44,6 +44,3 @@ steps:
 
  - step:
    - base_auto:
-
-
-
