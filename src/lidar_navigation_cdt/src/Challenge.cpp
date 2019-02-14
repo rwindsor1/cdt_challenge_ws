@@ -240,6 +240,11 @@ bool NavigationDemo::planCarrot(const grid_map_msgs::GridMap& message,
   double current_roll, current_pitch, current_yaw;
   Eigen::Quaterniond robot_q(pose_robot.rotation());
   quat_to_euler(robot_q, current_roll, current_pitch, current_yaw);
+  // create blurred traversability map
+  cv::Mat originalImage, erodeImage;
+  GridMapCvConverter::toImage<unsigned short, 1>(outputMap, "traversability", CV_16UC1, 0.0, 0.3, originalImage);
+  // add your OpenCV operation here
+  GridMapCvConverter::addLayerFromImage<unsigned short, 1>(erodeImage, "traversability_clean_eroded", outputMap, 0.0, 0.3);
 
   const double pi= 3.14159265;
   double robot_heading_x = cos(current_yaw);
@@ -292,6 +297,7 @@ bool NavigationDemo::planCarrot(const grid_map_msgs::GridMap& message,
   double cone_angle = pi/18;
   double original_heading_x = robot_heading_x;
   double original_heading_y = robot_heading_y;
+  int carrot_outside_counter = 1;
   while(!vector_ok){
 
 
@@ -308,7 +314,7 @@ bool NavigationDemo::planCarrot(const grid_map_msgs::GridMap& message,
 	if(j==2){ test_x = robot_heading_x*cos(-cone_angle)-robot_heading_y*sin(-cone_angle);
 		  test_y = robot_heading_x*sin(-cone_angle)+robot_heading_y*cos(-cone_angle);
 		}
-	for(int i = 0 ; i < 180; i++ ) {
+	for(int i = 0 ; i < 180/carrot_outside_counter; i++ ) {
 		// position to check traversability at
 	      Position test_pos(pos_robot[0]+test_x*i*.01, pos_robot[1]+test_y*0.01*i);
 
@@ -324,10 +330,11 @@ bool NavigationDemo::planCarrot(const grid_map_msgs::GridMap& message,
 	      }
 	      else{
 		std::cout << "ERROR: test carrot is outside the map" << std::endl;
+    carrot_outside_counter += 1;
 	      }
 	    }
 }
-    double carrot_distance = 1.5;
+    double carrot_distance = 2;
     robot_heading_x = carrot_distance*robot_heading_x/sqrt(robot_heading_x*robot_heading_x+ robot_heading_y*robot_heading_y);
     robot_heading_y = carrot_distance*robot_heading_y/sqrt(robot_heading_x*robot_heading_x+ robot_heading_y*robot_heading_y);
 
@@ -339,7 +346,7 @@ bool NavigationDemo::planCarrot(const grid_map_msgs::GridMap& message,
     }
     else{
       //terrain is bad so rotate vector
-      angle = rotation_counter*pi/18;
+      angle = rotation_counter*pi/23;
       if((rotation_counter % 2) == 0){
          angle = -angle;
 	}
@@ -378,7 +385,7 @@ bool NavigationDemo::planCarrot(const grid_map_msgs::GridMap& message,
   Eigen::Quaterniond carrot_q = euler_to_quat(final_goal_yaw,0,0);
   std::cout << "Carrot pos x : " << carrot_pos_x << std::endl;
   std::cout << "Carrot pos y : " << carrot_pos_y << std::endl;
-  if(goal_x <2){
+  if(abs(goal_x) < 2 && abs(goal_y) < 0.5){
     carrot_pos_x = pos_goal[0];
     carrot_pos_y = pos_goal[1];
   }
